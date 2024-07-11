@@ -1,6 +1,7 @@
 
 
-export const getData = async <ResponseDataType>(query: string) => {
+export const getData = async <ResponseDataType>(query: string, cache: RequestCache =  'no-cache', revalidateTimeInHours: number = 0
+) => {
 
     const token = `${process.env.DATO_READ_ONLY_KEY}`
 
@@ -16,6 +17,10 @@ export const getData = async <ResponseDataType>(query: string) => {
             body: JSON.stringify({
                 query
             }),
+            cache: "no-cache",
+            next: {
+                revalidate: 1000 * 60 * 60 * revalidateTimeInHours
+            }
         }
     )
 

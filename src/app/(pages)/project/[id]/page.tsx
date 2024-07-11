@@ -35,18 +35,16 @@ const Project = async ({
         }
     `)
 
-    console.log(project)
-
 
 
     return (
-        <div className="p-8 bg-white shadow-md dark:bg-gray-800 min-h-screen rounded-lg">
-            <Title>{project.name}</Title>
+        <div className="p-8">
+            <Title as="h1">{project.name}</Title>
 
             <ProjectSlide imagesUrl={project.print.map(print => print.url)} />
 
             <div className="mt-8">
-                <p className="text-lg mb-6">{project.description}</p>
+                <p className="mb-6">{project.description}</p>
 
                 {
                     project.technologie.length > 0 &&
@@ -88,9 +86,9 @@ const Project = async ({
                 </div>
 
                 <div className="flex flex-col space-y-4">
-                    <div className="flex items-center space-x-4">
-                        <At size={24} className="text-yellow-500" />
-                        <p className="text-lg font-medium">{project.supportemail}</p>
+                    <div className="flex flex-wrap items-center justify-center space-x-4">
+                        <At size={24} className="text-yellow-500 min-w-6 min-h-6" />
+                        <p className="font-medium">{project.supportemail}</p>
                     </div>
                 </div>
             </div>

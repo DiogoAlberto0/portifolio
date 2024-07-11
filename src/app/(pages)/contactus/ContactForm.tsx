@@ -5,6 +5,7 @@ import { handleSubmitMessage, IFormState } from "./action"
 
 import { Button } from "@/components/Button/Button"
 import { Flag } from "@/components/Flag/Flag"
+import { Title } from "@/components/Title/Title"
 
 
 const inicialState: IFormState = {
@@ -20,7 +21,7 @@ export const ContactForm = () => {
 
     return (
         <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <h3 className="text-2xl font-bold mb-4">Envie uma mensagem</h3>
+            <Title as="h3">Envie uma mensagem</Title>
             <form action={action}>
                 <div className="mb-4">
                     <label htmlFor="phone" className={labelStyle}>Seu telefone:</label>

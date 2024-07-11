@@ -12,6 +12,13 @@ interface IHabilityType {
     }
 }
 const AboutMe = async () => {
+    const { static: data } = await getData<{ static: { aboutme: string } }>(`
+        query MyQuery {
+            static {
+                aboutme
+            }
+        }
+    `)
 
     const { allHabilities } = await getData<{ allHabilities: IHabilityType[] }>(`
         query MyQuery {
@@ -27,36 +34,33 @@ const AboutMe = async () => {
     `)
 
     return (
-        <div className="">
-            <Title>Sobre mim</Title>
+        <div className="p-8">
+            <Title as="h1">Sobre mim</Title>
 
-            <h2 className="text-4xl font-extrabold mb-6">Um pouco mais sobre a minha trajetória</h2>
+            <Title as="h2" className="mb-6">Um pouco mais sobre a minha trajetória</Title>
 
-            <p className="text-lg mb-4">
-                Olá, sou Diogo Alberto, um desenvolvedor web apaixonado com uma sólida experiência em tecnologias front-end e conhecimento básico em backend. Meu caminho profissional começou na faculdade, onde mergulhei fundo no universo do desenvolvimento web, especializando-me em JavaScript, HTML e CSS. Com habilidades sólidas nessas linguagens de programação fundamentais, desenvolvi projetos dinâmicos e responsivos que proporcionam experiências de usuário excepcionais em dispositivos móveis e desktops.
-            </p>
+            <div className="mb-8">
+                {
+                    data.aboutme.split('\n').map((paragraph, index) => (
+                        <p key={index} className="mb-4">{paragraph}</p>
+                    ))
+                }
+            </div>
 
-            <p className="text-lg mb-4">
-                Além do meu conhecimento técnico, sou um colaborador proativo e comprometido com o trabalho em equipe. Acredito na aprendizagem contínua e mantenho-me atualizado sobre as últimas tendências e melhores práticas em React, Node.js e outras tecnologias relacionadas. Estou animado para aplicar minhas habilidades e experiência em um ambiente profissional, contribuindo para projetos inovadores e desafiadores no mundo do desenvolvimento web.
-            </p>
-
-            <p className="text-lg mb-8">
-                Estou à procura de oportunidades que me permitam expandir meu conhecimento, enfrentar novos desafios e trabalhar em projetos que impactem positivamente os usuários finais. Estou entusiasmado para fazer parte de uma equipe talentosa e colaborativa, onde posso aplicar minha paixão pelo desenvolvimento web e criar soluções que elevem as experiências online para o próximo nível.
-            </p>
 
             <div>
-                <h3 className="text-3xl font-bold mb-6">Habilidades</h3>
+                <Title as="h3" className="mb-2">Habilidades</Title>
 
                 <div className="space-y-6">
                     {
                         allHabilities.map(hability => (
-                            <div className="flex items-center space-x-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md" key={hability.id}>
-                                <div>
-                                    <Image width={48} height={48} alt="Icon" src={hability.icon.url}/>
+                            <div className="flex flex-col sm:flex-row space-x-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md" key={hability.id}>
+                                <div className=" flex justify-center items-center min-h-14 min-w-14">
+                                    <Image width={56} height={56} alt="Icon" src={hability.icon.url} />
                                 </div>
-                                <div>
-                                    <h4 className="text-2xl font-bold mb-2">{hability.hability}</h4>
-                                    <p className="text-lg">
+                                <div className="">
+                                    <Title as="h4" className="mb-2">{hability.hability}</Title>
+                                    <p>
                                         {hability.description}
                                     </p>
                                 </div>
@@ -69,5 +73,15 @@ const AboutMe = async () => {
         </div>
     )
 }
-
+{/* <div className="flex flex-wrap items-center space-x-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md" key={hability.id}>
+    <div className="bg-red-500">
+        <Image width={48} height={48} alt="Icon" src={hability.icon.url} />
+    </div>
+    <div className="bg-blue-500">
+        <h4 className="text-2xl font-bold mb-2">{hability.hability}</h4>
+        <p className="text-lg">
+            {hability.description}
+        </p>
+    </div>
+</div> */}
 export default AboutMe

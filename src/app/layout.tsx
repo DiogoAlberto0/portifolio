@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={inter.className +' bg-gray-200 dark:bg-neutral-900 dark:text-white'}>
+      <body className={inter.className +' bg-gray-200 dark:bg-neutral-900 dark:text-white text-sm sm:text-base'}>
         <ThemeButton />
         {children}
       </body>

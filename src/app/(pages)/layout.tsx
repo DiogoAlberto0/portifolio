@@ -11,7 +11,7 @@ export default function PagesLayout({
         <div className="flex">
             <IconHeader />
             <Header />
-            <main className="w-full max-h-screen overflow-auto p-8 min-h-screen">
+            <main className="w-full max-h-screen overflow-auto sm:p-8 min-h-screen">
                 {children}
             </main>
         </div>

@@ -1,38 +1,58 @@
 import { Flag } from '@/components/Flag/Flag'
 import { LinkButton } from '@/components/LinkButton/LinkButton'
+import { Title } from '@/components/Title/Title'
+import { getData } from '@/utils/datoCMS'
 import Image from 'next/image'
 
-const Home = () => {
+interface IStaticData {
+  photo: {
+    url: string;
+  };
+  name: string;
+  resume: string;
+}
+
+const Home = async () => {
+
+  const { static: data } = await getData<{ static: IStaticData }>(`
+      query MyQuery {
+        static {
+          photo {
+            url
+          }
+          name
+          resume
+        }
+      }
+  `)
   return (
     <main className="flex h-screen w-screen overflow-hidden relative">
-      <div className="flex flex-col items-start justify-center gap-4 p-20">
-        <h2 className="font-bold text-2xl hover:cursor-auto">
-          Olá!
-        </h2>
-        <h1 className="font-extrabold text-3xl">
-          Eu sou o <span className="text-primary ">Diogo</span>
-        </h1>
-        <div className=" w-1/2 flex flex-wrap gap-2">
-          <Flag className="font-medium text-md">
-            React
-          </Flag>
-          <Flag className="font-medium text-md">
-            Node
-          </Flag>
-          <Flag className="font-medium text-md">
-            Next
-          </Flag>
+      <div className="flex flex-col items-start justify-center gap-4 p-2 md:p-20">
+        <div>
+          <Title as="h1" className="text-white">
+            Olá!
+          </Title>
+          <Title as="h2" className="font-extrabold text-3xl">
+            Eu sou o <span className="text-primary ">{data.name}</span>
+          </Title>
         </div>
-        <p className="font-normal">
-          Olá! Sou Diogo Alberto, o criador por trás desses aplicativos web incríveis! Bem-vindo ao meu portfólio digital, onde a inovação encontra a funcionalidade. Explore e descubra as soluções que transformam ideias em experiências digitais extraordinárias. Sinta-se à vontade para explorar e entrar em contato para transformar sua visão em realidade. Boas-vindas ao futuro da tecnologia!
-        </p>
+        <p className="font-normal max-h-[50%] overflow-auto">{data.resume}</p>
         <LinkButton href="/aboutme">
           Mais sobre mim
         </LinkButton>
       </div>
-      <Image src="/assets/avatar.svg" priority height={1920} width={1080} alt="Avatar" className="w-2/5 h-auto object-cover hidden md:flex" />
+      <Image
+        src={data.photo.url}
+        priority
+        height={1920}
+        width={1080}
+        alt="Avatar"
+        className="absolute h-40 w-40 rounded-full -right-10 -top-10 border-primary border-4 md:relative md:w-2/5 md:object-cover md:h-full md:rounded-none md:border-none md:top-0 md:right-0"
+      />
     </main>
   )
 }
 
 export default Home
+
+// w-2/5 h-auto object-cover hidden md:flex
