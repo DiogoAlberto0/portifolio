@@ -12,7 +12,7 @@ const Header = () => {
             </div>
 
             <nav className="flex-1 flex flex-col justify-center items-center">
-                <HeaderDivisor postion="bottom" />
+                <HeaderDivisor postion="top" />
                 <StyledLink href="/">Home</StyledLink>
                 <HeaderDivisor />
                 <StyledLink href="/aboutme">Sobre mim</StyledLink>
@@ -20,7 +20,7 @@ const Header = () => {
                 <StyledLink href="/projects">Projetos</StyledLink>
                 <HeaderDivisor />
                 <StyledLink href="/contactus">Fale comigo</StyledLink>
-                <HeaderDivisor postion="top" />
+                <HeaderDivisor postion="bottom" />
             </nav>
         </header>
     )

@@ -7,20 +7,20 @@ interface IProjectType {
     id: string;
     name: string;
     print: { url: string }[]
-    technologie: string[]
+    technologies: { hability: string }[]
 }
 const Projects = async () => {
 
-
-    const { allProjects: projects } = await getData<{ allProjects: IProjectType[] }>(`
-        {
+    const { allProjects } = await getData<{ allProjects: IProjectType[] }>(`
+        query MyQuery {
             allProjects {
-                id
-                name
-                print {
+              print {
                     url
                 }
-                technologie
+              technologies {
+                    hability
+                }
+                name
             }
         }
     `)
@@ -31,13 +31,13 @@ const Projects = async () => {
 
             <div className="flex flex-wrap justify-center">
                 {
-                    projects.map(project => (
+                    allProjects.map(project => (
                         <ProjectCard
                             key={project.id}
                             id={project.id}
                             name={project.name}
                             imageUrl={project.print[0].url}
-                            technologies={project.technologie.slice(0, 2)}
+                            technologies={project.technologies.slice(0, 2).map(tech => tech.hability)}
                             href={`/project/${project.id}`}
                         />
                     ))

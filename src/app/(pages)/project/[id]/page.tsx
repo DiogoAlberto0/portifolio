@@ -3,34 +3,41 @@ import { ProjectSlide } from './Slide';
 import { LinkButton } from '@/components/LinkButton/LinkButton';
 import { Title } from '@/components/Title/Title';
 import { getData } from '@/utils/datoCMS';
+import Image from 'next/image';
 
 interface IProjectType {
     id: string;
     name: string;
     description: string;
-    technologie: string[];
     liveurl: string;
     codeUrl: string;
     supportemail: string;
+    technologies: { hability: string, icon: { url: string }}[];
     print: { url: string }[];
 }
 const Project = async ({
     params: { id }
 }: { params: { id: string } }) => {
 
+
     const { project } = await getData<{ project: IProjectType }>(`
         query MyQuery {
-            project (filter: {id: {eq: "${id}"}}){
+            project(filter: { id: { eq: "Qg8JsUy3SX-9K_41E4J58Q" } }) {
                 id
                 name
-                description
-                technologie
                 liveurl
+                description
                 codeUrl
-                supportemail
                 print {
                     url
                 }
+                technologies {
+                    hability
+                    icon {
+                        url
+                    }
+                }
+                supportemail
             }
         }
     `)
@@ -47,16 +54,17 @@ const Project = async ({
                 <p className="mb-6">{project.description}</p>
 
                 {
-                    project.technologie.length > 0 &&
+                    project.technologies.length > 0 &&
                     <>
                         <h2 className="text-2xl font-bold mb-4">Tecnologias Utilizadas</h2>
                         <div className="flex flex-wrap mb-8">
-                            {project.technologie.map((tech, index) => (
+                            {project.technologies.map((tech, index) => (
                                 <span
                                     key={index}
-                                    className="bg-yellow-500 text-xs font-semibold mr-2 mb-2 px-2 py-1 rounded"
+                                    className="flex flex-col justify-center items-center border-4 border-primary rounded-full h-32 w-32"
                                 >
-                                    {tech}
+                                    <Image height={40} width={40} src={tech.icon.url} alt=""/>
+                                    {tech.hability}
                                 </span>
                             ))}
                         </div>
