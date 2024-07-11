@@ -18,7 +18,7 @@ export default function Error({
 
   return (
     <div className="p-8 bg-gray-100 dark:bg-gray-800 text-black dark:text-white min-h-screen flex flex-col items-center justify-center">
-      <Title>Erro</Title>
+      <Title as="h1">Erro</Title>
 
       <h2 className="text-3xl font-extrabold mb-4">Algo deu errado!</h2>
       <p className="mb-8 text-lg text-red-500">{error.message}</p>
