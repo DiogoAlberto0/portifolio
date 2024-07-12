@@ -22,7 +22,7 @@ const Project = async ({
 
     const { project } = await getData<{ project: IProjectType }>(`
         query MyQuery {
-            project(filter: { id: { eq: "Qg8JsUy3SX-9K_41E4J58Q" } }) {
+            project(filter: { id: { eq: "${id}" } }) {
                 id
                 name
                 liveurl
@@ -42,6 +42,8 @@ const Project = async ({
         }
     `)
 
+    console.log(project)
+
 
 
     return (
@@ -51,17 +53,17 @@ const Project = async ({
             <ProjectSlide imagesUrl={project.print.map(print => print.url)} />
 
             <div className="mt-8">
-                <p className="mb-6">{project.description}</p>
+                <div dangerouslySetInnerHTML={{ __html: project.description}}  className="mb-6 flex flex-col gap-2" />
 
                 {
                     project.technologies.length > 0 &&
                     <>
                         <h2 className="text-2xl font-bold mb-4">Tecnologias Utilizadas</h2>
-                        <div className="flex flex-wrap mb-8">
+                        <div className="flex items-center justify-center flex-wrap gap-4 mb-8">
                             {project.technologies.map((tech, index) => (
                                 <span
                                     key={index}
-                                    className="flex flex-col justify-center items-center border-4 border-primary rounded-full h-32 w-32"
+                                    className="flex flex-col justify-center items-center bg-gray-800 rounded-full h-32 w-32"
                                 >
                                     <Image height={40} width={40} src={tech.icon.url} alt=""/>
                                     {tech.hability}

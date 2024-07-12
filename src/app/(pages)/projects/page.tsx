@@ -14,6 +14,8 @@ const Projects = async () => {
     const { allProjects } = await getData<{ allProjects: IProjectType[] }>(`
         query MyQuery {
             allProjects {
+            id
+            
               print {
                     url
                 }
@@ -24,6 +26,8 @@ const Projects = async () => {
             }
         }
     `)
+
+    console.log(allProjects)
 
     return (
         <div className="p-8">
