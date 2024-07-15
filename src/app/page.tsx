@@ -1,7 +1,7 @@
 import { Flag } from '@/components/Flag/Flag'
 import { LinkButton } from '@/components/LinkButton/LinkButton'
 import { Title } from '@/components/Title/Title'
-import { getData } from '@/utils/datoCMS'
+import { getData, incrementViews } from '@/utils/datoCMS'
 import Image from 'next/image'
 
 interface IStaticData {
@@ -13,6 +13,8 @@ interface IStaticData {
 }
 
 const Home = async () => {
+
+  await incrementViews()
 
   const { static: data } = await getData<{ static: IStaticData }>(`
       query MyQuery {
@@ -36,6 +38,7 @@ const Home = async () => {
             Eu sou o <span className="text-primary ">{data.name}</span>
           </Title>
         </div>
+          <Flag>Full-stack developer</Flag>
         <p className="font-normal max-h-[50%] overflow-auto">{data.resume}</p>
         <LinkButton href="/aboutme">
           Mais sobre mim
@@ -54,5 +57,3 @@ const Home = async () => {
 }
 
 export default Home
-
-// w-2/5 h-auto object-cover hidden md:flex

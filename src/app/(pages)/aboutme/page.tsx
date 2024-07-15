@@ -1,16 +1,14 @@
-import { Title } from "@/components/Title/Title"
+//data
 import { getData } from "@/utils/datoCMS"
-import { Atom, FileTs, GithubLogo, FileJs } from "@phosphor-icons/react/dist/ssr"
-import Image from "next/image"
 
-interface IHabilityType {
-    id: string;
-    hability: string;
-    description: string,
-    icon: {
-        url: string;
-    }
-}
+//type
+import { IHabilityType } from "./IHability"
+
+//components
+import { Title } from "@/components/Title/Title"
+import { HabilityCard } from "./HabilityCard"
+
+
 const AboutMe = async () => {
     const { static: data } = await getData<{ static: { aboutme: string } }>(`
         query MyQuery {
@@ -53,19 +51,7 @@ const AboutMe = async () => {
 
                 <div className="space-y-6">
                     {
-                        allHabilities.map(hability => (
-                            <div className="flex flex-col sm:flex-row space-x-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md" key={hability.id}>
-                                <div className=" flex justify-center items-center min-h-14 min-w-14">
-                                    <Image width={56} height={56} alt="Icon" src={hability.icon.url} />
-                                </div>
-                                <div className="">
-                                    <Title as="h4" className="mb-2">{hability.hability}</Title>
-                                    <p>
-                                        {hability.description}
-                                    </p>
-                                </div>
-                            </div>
-                        ))
+                        allHabilities.map(hability => <HabilityCard key={hability.id} hability={hability}/>)
                     }
 
                 </div>

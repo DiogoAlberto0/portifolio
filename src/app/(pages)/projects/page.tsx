@@ -27,8 +27,6 @@ const Projects = async () => {
         }
     `)
 
-    console.log(allProjects)
-
     return (
         <div className="p-8">
             <Title as="h1">Projetos</Title>

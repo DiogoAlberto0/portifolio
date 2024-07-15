@@ -1,20 +1,16 @@
+//icons
 import { At, GithubLogo, Link as LinkIcon } from '@phosphor-icons/react/dist/ssr';
+
+//data
+import { getData } from '@/utils/datoCMS';
+
+//components
 import { ProjectSlide } from './Slide';
+import { IProjectType } from './IProject';
+import { HabilityIcon } from './HabilityIcon';
 import { LinkButton } from '@/components/LinkButton/LinkButton';
 import { Title } from '@/components/Title/Title';
-import { getData } from '@/utils/datoCMS';
-import Image from 'next/image';
 
-interface IProjectType {
-    id: string;
-    name: string;
-    description: string;
-    liveurl: string;
-    codeUrl: string;
-    supportemail: string;
-    technologies: { hability: string, icon: { url: string }}[];
-    print: { url: string }[];
-}
 const Project = async ({
     params: { id }
 }: { params: { id: string } }) => {
@@ -42,10 +38,6 @@ const Project = async ({
         }
     `)
 
-    console.log(project)
-
-
-
     return (
         <div className="p-8">
             <Title as="h1">{project.name}</Title>
@@ -60,15 +52,7 @@ const Project = async ({
                     <>
                         <h2 className="text-2xl font-bold mb-4">Tecnologias Utilizadas</h2>
                         <div className="flex items-center justify-center flex-wrap gap-4 mb-8">
-                            {project.technologies.map((tech, index) => (
-                                <span
-                                    key={index}
-                                    className="flex flex-col justify-center items-center bg-gray-800 rounded-full h-32 w-32"
-                                >
-                                    <Image height={40} width={40} src={tech.icon.url} alt=""/>
-                                    {tech.hability}
-                                </span>
-                            ))}
+                            {project.technologies.map((tech, index) => <HabilityIcon key={index} tech={tech}/>)}
                         </div>
                     </>
                 }
