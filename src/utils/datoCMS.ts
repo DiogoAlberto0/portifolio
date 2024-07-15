@@ -1,4 +1,4 @@
-
+"use server"
 
 export const getData = async <ResponseDataType>(query: string, cache: RequestCache = 'no-cache', revalidateTimeInHours: number = 0
 ) => {
@@ -70,7 +70,7 @@ export const createMessage = async (email: string, phone: string, message: strin
 }
 
 export const incrementViews = async (ip: string) => {
-
+    
     const response = await fetch(
         'https://site-api.datocms.com/items',
         {
@@ -108,7 +108,6 @@ export const incrementViews = async (ip: string) => {
 }
 
 export const getIpAdress = async () => {
-    'use client'
     const ipResponse = await fetch('https://api.ipify.org?format=json', {
         method: 'GET',
         headers: {
