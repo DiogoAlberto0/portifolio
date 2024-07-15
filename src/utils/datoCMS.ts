@@ -69,17 +69,7 @@ export const createMessage = async (email: string, phone: string, message: strin
     return response
 }
 
-export const incrementViews = async () => {
-
-    const ipResponse = await fetch('https://api.ipify.org?format=json', {
-        method: 'GET',
-        headers: {
-            Accept: 'application/json',
-            'X-Api-Version': '3',
-            'Content-Type': 'application/vnd.api+json'
-        }
-    })
-    const { ip } = await ipResponse.json() as { ip: string }
+export const incrementViews = async (ip: string) => {
 
     const response = await fetch(
         'https://site-api.datocms.com/items',
@@ -115,4 +105,20 @@ export const incrementViews = async () => {
 
 
     return response.json()
+}
+
+export const getIpAdress = async () => {
+    'use client'
+    const ipResponse = await fetch('https://api.ipify.org?format=json', {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'X-Api-Version': '3',
+            'Content-Type': 'application/vnd.api+json'
+        }
+    })
+    const { ip } = await ipResponse.json() as { ip: string }
+
+    console.log(ip)
+    return ip
 }
