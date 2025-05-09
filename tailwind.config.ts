@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
-
+import typography from "@tailwindcss/typography";
 const config: Config = {
-  darkMode: 'selector',
+  darkMode: "selector",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         primary: "#eab308",
-        "primary-dark": "#1f2937"
+        "primary-dark": "#1f2937",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -20,6 +20,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [typography()],
 };
 export default config;
